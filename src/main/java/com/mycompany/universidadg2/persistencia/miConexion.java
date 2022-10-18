@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.SQLException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 
 public class miConexion {
     
@@ -22,7 +23,8 @@ public class miConexion {
         if(conexion==null){
             try{
                 Class.forName("org.mariadb.jdbc.Driver");
-            }catch(ClassNotFoundException ex){
+                    conexion = DriverManager.getConnection(url, usuario, password);
+            }catch(SQLException | ClassNotFoundException ex){
                 Logger.getLogger(miConexion.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

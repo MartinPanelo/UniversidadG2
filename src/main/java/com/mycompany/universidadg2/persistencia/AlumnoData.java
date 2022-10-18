@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 
@@ -34,13 +35,13 @@ public class AlumnoData {
                 System.out.println("No se pudo obtener ID");
                 ps.close();
             }
-        }catch{
-        
+        }catch (SQLException ex){
+            System.out.println("Se produjo un error.");
     }
     
     
     
     
     
-    
+    }
 }
