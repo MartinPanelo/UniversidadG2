@@ -8,9 +8,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 
 public class AlumnoData {
+    
+    PreparedStatement ps;
     
     private Connection conexionData = null;
 
@@ -21,7 +24,7 @@ public class AlumnoData {
     public void guardarAlumno(Alumno a){
         String query = "INSERT INTO alumno(DNI, apellido, nombre, fecha_nacimiento, estado) VALUES (?,?,?,?,?)";
         try{
-            PreparedStatement ps = conexionData.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            ps = conexionData.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setLong(1, a.getDni());
             ps.setString(2,a.getApellido());
             ps.setString(3, a.getNombre());
@@ -39,9 +42,31 @@ public class AlumnoData {
             System.out.println("Se produjo un error.");
     }
     
-    
-    
-    
-    
     }
+    
+    public void buscarAlumno(int id) {
+        Alumno a = null;
+        String sql = "SELECT * FROM alumno WHERE id_alumno = ?";
+        try {
+        ps = conexionData.prepareStatement(sql);
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) { 
+           a = new Alumno();
+           a.setId_alumno(rs.getInt("id_alumno"));
+           a.setDni(rs.getLong("DNI"));
+           a.setApellido(rs.getString("apellido"));
+           a.setNombre(rs.getString("nombre"));
+           a.setDate(rs.getDate("fecha_nacimiento").toLocalDate());
+           a.setEstado(rs.getBoolean("estado"));
+        }
+        } catch (SQLException ex)   {   
+            System.out.println("Se produjo un error");
+        }
+                
+    }
+    
+    //public List<Alumno> listarAlumnos() {}
+    //public void actualizarAlumno()  {Alumno a}
+    //public void borrarAlumno()  {int id}
 }
