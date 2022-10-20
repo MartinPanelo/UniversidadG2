@@ -4,6 +4,13 @@
     <groupId>com.mycompany.universidadg2</groupId>
     <artifactId>UniversidadG2</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <dependencies>
+        <dependency>
+            <groupId>Librerias</groupId>
+            <artifactId>Librerias</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>18</maven.compiler.source>

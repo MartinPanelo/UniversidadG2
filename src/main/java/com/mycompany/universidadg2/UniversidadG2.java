@@ -5,6 +5,13 @@
 
 package com.mycompany.universidadg2;
 
+import com.mycompany.universidadg2.entidades.Alumno;
+import com.mycompany.universidadg2.persistencia.AlumnoData;
+import com.mycompany.universidadg2.persistencia.Conexion;
+import com.mycompany.universidadg2.persistencia.miConexion;
+import java.sql.Connection;
+import java.time.LocalDate;
+
 /**
  *
  * @author martin
@@ -12,6 +19,21 @@ package com.mycompany.universidadg2;
 public class UniversidadG2 {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        
+        Connection conexiondb = Conexion.getConexion();        
+        AlumnoData alu = new AlumnoData(conexiondb);
+        
+        
+        // BUSCAR UN ALUMNO
+        System.out.println(alu.buscarAlumnoPorID(2));
+        
+      
+        // GUARDAR UN ALUMNO
+       
+       Alumno aluGuardado = new Alumno(454545, "Mcwin", "Rayo",LocalDate.now() , true);
+       alu.guardarAlumno(aluGuardado);
+       
+       
+       
     }
 }

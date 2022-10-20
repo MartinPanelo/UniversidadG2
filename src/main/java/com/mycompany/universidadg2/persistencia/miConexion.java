@@ -23,8 +23,11 @@ public class miConexion {
         if(conexion==null){
             try{
                 Class.forName("org.mariadb.jdbc.Driver");
-                    conexion = DriverManager.getConnection(url, usuario, password);
+                conexion = DriverManager.getConnection(url, usuario, password);
+                System.out.println("Connected database successfully...");
+
             }catch(SQLException | ClassNotFoundException ex){
+                System.out.println("Error al cargar el driver de mariaDB");
                 Logger.getLogger(miConexion.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
