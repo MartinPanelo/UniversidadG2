@@ -76,7 +76,7 @@ public class AlumnoData {
     
         ArrayList<Alumno> lista=new ArrayList();
         
-        String sql="SELECT * FROM alumnos WHERE estado = 1";
+        String sql="SELECT * FROM alumno WHERE estado = 1";
         
         try {
             PreparedStatement ps=conexionData.prepareStatement(sql);
@@ -87,11 +87,11 @@ public class AlumnoData {
             
                 Alumno a=new Alumno();
                 
-                a.setId_alumno(rs.getInt("idAlumno"));
-                a.setDni(rs.getInt("dni"));
+                a.setId_alumno(rs.getInt("id_alumno"));
+                a.setDni(rs.getInt("DNI"));
                 a.setApellido(rs.getString("apellido"));
                 a.setNombre(rs.getString("nombre"));
-                a.setDate(rs.getDate("fechaNacimiento").toLocalDate());
+                a.setDate(rs.getDate("fecha_nacimiento").toLocalDate());
                 a.setEstado(rs.getBoolean("estado"));
                 
                 lista.add(a);
