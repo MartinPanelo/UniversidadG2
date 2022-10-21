@@ -39,7 +39,7 @@ public class UniversidadG2 {
         
        // ACTUALIZAR UN ALUMNO // el id viene dentro del alumno
        Alumno aluActualizado = new Alumno(99999, "Zapallo", "Coreano",LocalDate.now() , true);
-       alu.actualizarAlumno(aluActualizado, 100);
+       alu.actualizarAlumno(aluActualizado);
        
        
        // BORRAR ALUMNO POR ID       

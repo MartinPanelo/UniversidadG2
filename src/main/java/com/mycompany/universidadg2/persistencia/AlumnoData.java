@@ -44,7 +44,7 @@ public class AlumnoData {
             }
             ps.close();
         } catch (SQLException ex) {
-            System.out.println("Se produjo un error. en agregar alumno");
+            JOptionPane.showMessageDialog(null, "Se produjo un error. en agregar alumno");
         }
 
     }
@@ -66,12 +66,12 @@ public class AlumnoData {
                 a.setEstado(rs.getBoolean("estado"));
             }
         } catch (SQLException ex) {
-            System.out.println("Se produjo un error");
+            JOptionPane.showMessageDialog(null, "Se produjo un error. en buscar alumno por id.");
         }
         return a;
     }
 
-    public void actualizarAlumno(Alumno a, int id) {
+    public void actualizarAlumno(Alumno a) {
         String sqlQuery = "UPDATE alumno SET DNI= ? ,apellido= ? ,nombre= ? ,fecha_nacimiento= ?, estado= ? WHERE id_alumno = ?";
         try {
             ps = conexionData.prepareStatement(sqlQuery);
@@ -80,11 +80,16 @@ public class AlumnoData {
             ps.setString(3, a.getNombre());
             ps.setDate(4, Date.valueOf(a.getDate()));
             ps.setBoolean(5, a.isEstado());
-            ps.setInt(6, id);
-            ps.executeUpdate();
+            ps.setInt(6, a.getId_alumno());
+            if (ps.executeUpdate() > 0) {
+                JOptionPane.showMessageDialog(null, "Se pudo actualizar al alumno.");
+            } else  {
+                JOptionPane.showMessageDialog(null, "No se pudo actualizar al alumno.");
+            }
+            
             ps.close();
         } catch(SQLException ex) {
-            System.out.println("Se produjo un error. en agregar alumno");
+            JOptionPane.showMessageDialog(null, "Se produjo un error. en agregar alumno");
         }  
         }
 
@@ -118,7 +123,7 @@ public class AlumnoData {
             ps.close();
 
         } catch (SQLException ex) {
-            System.out.println("Se produjo un error al obtener a los alumnos");
+            JOptionPane.showMessageDialog(null, "Se produjo un error al obtener a los alumnos");
         }
         return lista;
     }
