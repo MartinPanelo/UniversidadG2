@@ -8,7 +8,6 @@ package com.mycompany.universidadg2;
 import com.mycompany.universidadg2.entidades.Alumno;
 import com.mycompany.universidadg2.persistencia.AlumnoData;
 import com.mycompany.universidadg2.persistencia.Conexion;
-import com.mycompany.universidadg2.persistencia.miConexion;
 import java.sql.Connection;
 import java.time.LocalDate;
 
@@ -23,11 +22,11 @@ public class UniversidadG2 {
         Connection conexiondb = Conexion.getConexion();        
         AlumnoData alu = new AlumnoData(conexiondb);
         
-        
+       
         // BUSCAR UN ALUMNO
         System.out.println(alu.buscarAlumnoPorID(2));
         
-      
+
         // GUARDAR UN ALUMNO
        
        Alumno aluGuardado = new Alumno(454545, "Mcwin", "Rayo",LocalDate.now() , true);
@@ -41,6 +40,10 @@ public class UniversidadG2 {
        // ACTUALIZAR UN ALUMNO // el id viene dentro del alumno
        Alumno aluActualizado = new Alumno(99999, "Zapallo", "Coreano",LocalDate.now() , true);
        alu.actualizarAlumno(aluActualizado, 100);
+       
+       
+       // BORRAR ALUMNO POR ID       
+       alu.borrarAlumno(12);
        
        
     }
