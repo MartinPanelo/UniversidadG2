@@ -7,13 +7,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class AlumnoData {
 
-    PreparedStatement ps;
+    
 
     private Connection conexionData;
 
@@ -25,7 +24,7 @@ public class AlumnoData {
 
         String query = "INSERT INTO alumno(DNI, apellido, nombre, fecha_nacimiento, estado) VALUES (?, ?, ?, ?, ?)";
         try {
-            ps = conexionData.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = conexionData.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setLong(1, a.getDni());
             ps.setString(2, a.getApellido());
             ps.setString(3, a.getNombre());
@@ -53,7 +52,7 @@ public class AlumnoData {
         Alumno a = null;
         String sql = "SELECT * FROM alumno WHERE id_alumno = ?";
         try {
-            ps = conexionData.prepareStatement(sql);
+            PreparedStatement ps = conexionData.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -74,7 +73,7 @@ public class AlumnoData {
     public void actualizarAlumno(Alumno a) {
         String sqlQuery = "UPDATE alumno SET DNI= ? ,apellido= ? ,nombre= ? ,fecha_nacimiento= ?, estado= ? WHERE id_alumno = ?";
         try {
-            ps = conexionData.prepareStatement(sqlQuery);
+            PreparedStatement ps = conexionData.prepareStatement(sqlQuery);
             ps.setLong(1, a.getDni());
             ps.setString(2, a.getApellido());
             ps.setString(3, a.getNombre());
