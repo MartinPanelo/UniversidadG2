@@ -66,6 +66,14 @@ public class UniversidadG2 {
        mData.borrarMateria(4);
        
        
+//1 InscribirAlumnos - Alumno, Materia, Nota;
+//2 ActualizarNota
+//3 ObtenerInscripcionPorId
+//4 ObtenerTodasLasIncripciones
+//5 BorrarInscripcion
+//6 Dado Un Alumno Devuelva Las Materias Inscriptas
+//7 Dado un alumno devuelva las materias en donde no esta inscripto
+       
        
     }
 }

@@ -126,12 +126,7 @@ public class AlumnoData {
         }
         return lista;
     }
-
-    
-    //public void actualizarAlumno()  {Alumno a}
-    //public void borrarAlumno()  {int id}
-    
-      
+  
     public void borrarAlumno (int id){
         String sql="UPDATE alumno SET estado=0 WHERE id_alumno = ?";
         try {
