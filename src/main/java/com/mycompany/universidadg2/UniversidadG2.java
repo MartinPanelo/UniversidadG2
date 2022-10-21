@@ -6,8 +6,10 @@
 package com.mycompany.universidadg2;
 
 import com.mycompany.universidadg2.entidades.Alumno;
+import com.mycompany.universidadg2.entidades.Materia;
 import com.mycompany.universidadg2.persistencia.AlumnoData;
 import com.mycompany.universidadg2.persistencia.Conexion;
+import com.mycompany.universidadg2.persistencia.MateriaData;
 import java.sql.Connection;
 import java.time.LocalDate;
 
@@ -44,6 +46,25 @@ public class UniversidadG2 {
        
        // BORRAR ALUMNO POR ID       
        alu.borrarAlumno(12);
+       
+       //AGREGAR MATERIA
+       Materia matAgregar = new Materia("Matematica", 1, true);
+       MateriaData mData = new MateriaData(conexiondb);
+       mData.agregarMateria(matAgregar);
+       
+       // BUSCAR UNA MATERIA POR ID
+        System.out.println(mData.buscarMateriaPorID(4));
+        
+       // ACTUALIZAR UNA MATERIA
+       Materia mat2Agregar = new Materia(4, "Frances", 1, true);
+       mData.actualizarMateria(mat2Agregar);
+       
+       // LISTAR MATERIAS
+       System.out.println(mData.listarMaterias());
+       
+       // BORRAR MATERIAS
+       mData.borrarMateria(4);
+       
        
        
     }
