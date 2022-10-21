@@ -129,7 +129,7 @@ public class AlumnoData {
     
       
     public void borrarAlumno (int id){
-        String sql="UPDATE alumnos SET estado=0 WHERE id_alumno=?";
+        String sql="UPDATE alumno SET estado=0 WHERE id_alumno = ?";
         try {
             PreparedStatement ps=conexionData.prepareStatement(sql);
             ps.setInt(1, id);
