@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 
@@ -71,7 +72,42 @@ public class AlumnoData {
         return a;
     }
     
-    //public List<Alumno> listarAlumnos() {}
+    public ArrayList<Alumno> listarAlumnos() {
+    
+        ArrayList<Alumno> lista=new ArrayList();
+        
+        String sql="SELECT * FROM alumnos WHERE estado = 1";
+        
+        try {
+            PreparedStatement ps=conexionData.prepareStatement(sql);
+            
+            ResultSet rs=ps.executeQuery();
+            
+            while(rs.next()){
+            
+                Alumno a=new Alumno();
+                
+                a.setId_alumno(rs.getInt("idAlumno"));
+                a.setDni(rs.getInt("dni"));
+                a.setApellido(rs.getString("apellido"));
+                a.setNombre(rs.getString("nombre"));
+                a.setDate(rs.getDate("fechaNacimiento").toLocalDate());
+                a.setEstado(rs.getBoolean("estado"));
+                
+                lista.add(a);
+            }
+            
+            ps.close();
+            
+        } catch (SQLException ex) {
+            System.out.println("Se produjo un error al obtener a los alumnos");
+        }
+    return lista;
+    }
+    
     //public void actualizarAlumno()  {Alumno a}
     //public void borrarAlumno()  {int id}
-}
+    
+    }
+    
+
