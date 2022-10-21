@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -122,6 +123,28 @@ public class AlumnoData {
         return lista;
     }
 
+    
     //public void actualizarAlumno()  {Alumno a}
     //public void borrarAlumno()  {int id}
-}
+    
+      
+    public void borrarAlumno (int id){
+        String sql="UPDATE alumnos SET estado=0 WHERE idAlumno=?";
+        try {
+            PreparedStatement ps=conexionData.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();//
+            
+            JOptionPane.showMessageDialog(null, "Se elimino el alumno correctamente");
+            
+            ps.close();
+            
+    }   catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ALumnoData Sentencia SQL erronea-borrarAlumno");
+        }
+    }
+      
+       
+    }
+
+
