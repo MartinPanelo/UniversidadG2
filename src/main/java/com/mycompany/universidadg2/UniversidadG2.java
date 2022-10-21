@@ -33,6 +33,14 @@ public class UniversidadG2 {
        Alumno aluGuardado = new Alumno(454545, "Mcwin", "Rayo",LocalDate.now() , true);
        alu.guardarAlumno(aluGuardado);
        
+       // LISTAR ALUMNOS
+       
+        System.out.println(alu.listarAlumnos());
+        
+        
+       // ACTUALIZAR UN ALUMNO // el id viene dentro del alumno
+       Alumno aluActualizado = new Alumno(99999, "Zapallo", "Coreano",LocalDate.now() , true);
+       alu.actualizarAlumno(aluActualizado, 100);
        
        
     }
