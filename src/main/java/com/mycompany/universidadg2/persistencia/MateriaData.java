@@ -69,12 +69,17 @@ public class MateriaData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Se produjo un error. en buscar materia por id.");
         }
+        
+        if (m == null) {
+            JOptionPane.showMessageDialog(null, "No hay una materia con ese ID");
+        }
         return m;
     }
     
     public void actualizarMateria(Materia m) {
         String sqlQuery = "UPDATE materia SET nombre= ? ,anio= ? ,estado= ? WHERE id_materia = ?";
-        try {
+        if (buscarMateriaPorID(m.getId_materia()) == null) {
+            try {
             PreparedStatement ps = conexionData.prepareStatement(sqlQuery);
             ps.setString(1, m.getNombre());
             ps.setInt(2, m.getAnio());
@@ -89,7 +94,8 @@ public class MateriaData {
             ps.close();
         } catch(SQLException ex) {
             JOptionPane.showMessageDialog(null, "Se produjo un error. en actualizar materia");
-        }  
+        }
+        }
         }
     
     public ArrayList<Materia> listarMaterias() {
@@ -128,9 +134,12 @@ public class MateriaData {
         try {
             PreparedStatement ps=conexionData.prepareStatement(sql);
             ps.setInt(1, id);
-            ps.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "Se elimino la materia correctamente");
+            if (ps.executeUpdate() <= 0) {
+                JOptionPane.showMessageDialog(null, "No se pudo eliminar");
+            } else  {   
+                JOptionPane.showMessageDialog(null, "Se elimino la materia correctamente");
+            }
             
             ps.close();
             

@@ -67,12 +67,16 @@ public class AlumnoData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Se produjo un error. en buscar alumno por id.");
         }
+        if (a == null) {
+            JOptionPane.showMessageDialog(null, "No se pudo buscar por id porque no existe un alumno con ese id.");
+        }
         return a;
     }
 
     public void actualizarAlumno(Alumno a) {
         String sqlQuery = "UPDATE alumno SET DNI= ? ,apellido= ? ,nombre= ? ,fecha_nacimiento= ?, estado= ? WHERE id_alumno = ?";
-        try {
+            if (buscarAlumnoPorID(a.getId_alumno()) != null) {
+            try {
             PreparedStatement ps = conexionData.prepareStatement(sqlQuery);
             ps.setLong(1, a.getDni());
             ps.setString(2, a.getApellido());
@@ -80,6 +84,7 @@ public class AlumnoData {
             ps.setDate(4, Date.valueOf(a.getDate()));
             ps.setBoolean(5, a.isEstado());
             ps.setInt(6, a.getId_alumno());
+           
             if (ps.executeUpdate() > 0) {
                 JOptionPane.showMessageDialog(null, "Se pudo actualizar al alumno.");
             } else  {
@@ -90,6 +95,8 @@ public class AlumnoData {
         } catch(SQLException ex) {
             JOptionPane.showMessageDialog(null, "Se produjo un error. en agregar alumno");
         }  
+            }
+            
         }
 
     
@@ -134,8 +141,12 @@ public class AlumnoData {
             ps.setInt(1, id);
             ps.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "Se elimino el alumno correctamente");
-            
+            if (ps.executeUpdate() <= 0) {
+                JOptionPane.showMessageDialog(null, "No se pudo eliminar el alumno");
+            } else  {   
+                JOptionPane.showMessageDialog(null, "Se elimino el alumno correctamente");
+            }
+         
             ps.close();
             
     }   catch (SQLException ex) {
