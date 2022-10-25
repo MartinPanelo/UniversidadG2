@@ -78,7 +78,7 @@ public class MateriaData {
     
     public void actualizarMateria(Materia m) {
         String sqlQuery = "UPDATE materia SET nombre= ? ,anio= ? ,estado= ? WHERE id_materia = ?";
-        if (buscarMateriaPorID(m.getId_materia()) == null) {
+        if (buscarMateriaPorID(m.getId_materia()) != null) {
             try {
             PreparedStatement ps = conexionData.prepareStatement(sqlQuery);
             ps.setString(1, m.getNombre());

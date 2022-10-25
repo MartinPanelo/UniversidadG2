@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -48,7 +49,7 @@ public class InscripcionData {
                     JOptionPane.showMessageDialog(null, "No se pudo obtener id.");
                 }
             } catch(SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Se produjo un error, en agregar materia");
+                JOptionPane.showMessageDialog(null, "Se produjo un error, en agregar la inscripción");
             }
     }
     
@@ -98,6 +99,129 @@ public class InscripcionData {
             JOptionPane.showMessageDialog(null, "InscripcionData Sentencia SQL erronea-borrarInscripcion");
         }
     }
-    
+     
+     public void actualizarNota(int id_alumno, int id_materia, double nota) {
+        String sqlQuery = "UPDATE inscripcion SET nota= ? WHERE id_materia = ? AND id_alumno = ?";
+            try {
+            PreparedStatement ps = conexionData.prepareStatement(sqlQuery);
+            ps.setDouble(1, nota);
+            ps.setInt(2, id_materia);
+            ps.setInt(3, id_alumno);
+            if (ps.executeUpdate() > 0) {
+                JOptionPane.showMessageDialog(null, "Se pudo actualizar la nota.");
+            } else  {
+                JOptionPane.showMessageDialog(null, "No se pudo actualizar la nota.");
+            }
+            
+            ps.close();
+        } catch(SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Se produjo un error. en actualizar nota");
+        }
+        }
+     
+     public List<Materia> obtenerMateriasInscriptas(Alumno a) {
+        
+        String sql = "SELECT * FROM inscripcion, materia WHERE inscripcion.id_materia = materia.id_materia AND id_alumno = ?";
+        
+        List<Materia> listaMateria = new ArrayList();
+        
+        try {
+            PreparedStatement ps = conexionData.prepareStatement(sql);
+
+            ps.setInt(1, a.getId_alumno());
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                
+                Materia m = new Materia();
+
+                m.setNombre(rs.getString("nombre"));
+                m.setAnio(rs.getInt("anio"));
+                m.setEstado(rs.getBoolean("estado"));
+                m.setId_materia(rs.getInt("id_materia"));
+             
+                listaMateria.add(m);
+                
+                }
+                
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Se produjo un error al obtener a las materias.");
+        }
+        
+        return listaMateria;
+    }
+     
+     public List<Materia> obtenerMateriasNoInscriptas(Alumno a) {
+        
+        String sql = "SELECT * FROM materia WHERE id_materia NOT IN(SELECT inscripcion.id_materia FROM inscripcion NATURAL JOIN materia WHERE id_alumno = ?)";
+        
+        List<Materia> listaMateria = new ArrayList();
+        
+        try {
+            PreparedStatement ps = conexionData.prepareStatement(sql);
+
+            ps.setInt(1, a.getId_alumno());
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                
+                Materia m = new Materia();
+
+                m.setNombre(rs.getString("nombre"));
+                m.setAnio(rs.getInt("anio"));
+                m.setEstado(rs.getBoolean("estado"));
+                m.setId_materia(rs.getInt("id_materia"));
+             
+                listaMateria.add(m);
+                
+                }
+                
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Se produjo un error al obtener a las materias.");
+        }
+        
+        return listaMateria;
+    }
+     
+     public List<Alumno> ObtenerAlumnosInscriptos(Materia m) {  
+        
+        String sql = "SELECT * FROM alumno WHERE id_alumno IN(SELECT inscripcion.id_alumno FROM inscripcion NATURAL JOIN alumno WHERE id_materia = ?)";
+        
+        List<Alumno> listaAlumno = new ArrayList();
+        
+        try {
+            PreparedStatement ps = conexionData.prepareStatement(sql);
+
+            ps.setInt(1, m.getId_materia());
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                
+                Alumno a = new Alumno();
+
+                a.setId_alumno(rs.getInt("id_alumno"));
+                a.setDni(rs.getLong("DNI"));
+                a.setApellido(rs.getString("apellido"));
+                a.setNombre(rs.getString("nombre"));
+                a.setDate(rs.getDate("fecha_nacimiento").toLocalDate());
+                a.setEstado(rs.getBoolean("estado"));
+             
+                listaAlumno.add(a);
+                
+                }
+                
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Se produjo un error al obtener a los alumnos.");
+        }
+        
+        return listaAlumno;
+    }
+     
     }
     

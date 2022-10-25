@@ -14,6 +14,7 @@ import com.mycompany.universidadg2.persistencia.InscripcionData;
 import com.mycompany.universidadg2.persistencia.MateriaData;
 import java.sql.Connection;
 import java.time.LocalDate;
+import java.time.Month;
 
 /**
  *
@@ -82,18 +83,23 @@ public class UniversidadG2 {
 //         System.out.println(iData.obtenerInscripcion(2, 2));
 
         // ELIMINAR INSCRIPCION
-           iData.borrarInscripcion(3, 3);
-           
-       
-       
-//1 InscribirAlumnos - Alumno, Materia, Nota;
-//2 ActualizarNota
-//3 ObtenerInscripcionPorId
-//4 ObtenerTodasLasIncripciones
-//5 BorrarInscripcion
-//6 Dado Un Alumno Devuelva Las Materias Inscriptas
-//7 Dado un alumno devuelva las materias en donde no esta inscripto
-       
+//         iData.borrarInscripcion(3, 3);
+
+        // ACTUALIZAR NOTA
+//           iData.actualizarNota(4, 9, 6.5);
+
+        // OBTENER LISTA DE MATERIAS INSCRIPTAS POR ALUMNO
+//          Alumno prueba1 = aData.buscarAlumnoPorID(3);
+//          System.out.println(iData.obtenerMateriasInscriptas(prueba1));
+            
+        // OBTENER LISTA DE MATERIAS NO INSCRIPTAS POR ALUMNO
+//          Alumno prueba2 = aData.buscarAlumnoPorID(3);
+//          System.out.println(iData.obtenerMateriasNoInscriptas(prueba2));
+
+        // OBTENER LISTA DE MATERIAS INSCRIPTAS POR ALUMNO
+//          Materia prueba3 = mData.buscarMateriaPorID(2);
+//          System.out.println(iData.ObtenerAlumnosInscriptos(prueba3));
+                   
        
     }
 }
