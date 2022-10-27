@@ -61,6 +61,7 @@ public class InscripcionData {
             ps.setInt(1, id_materia);
             ps.setInt(2, id_alumno);
             ResultSet rs = ps.executeQuery();
+            rs.toString();
   
             if (rs.next()) {
                 i1 = new Inscripcion();

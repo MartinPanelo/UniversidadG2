@@ -4,10 +4,8 @@
  */
 package com.mycompany.universidadg2.persistencia;
 
-import com.mycompany.universidadg2.entidades.Alumno;
 import com.mycompany.universidadg2.entidades.Materia;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,7 +1,5 @@
 package com.mycompany.universidadg2.entidades;
 
-import java.util.Objects;
-
 public class Inscripcion {
     private int id_inscripcion;
     private Alumno alumno;
