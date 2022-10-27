@@ -23,11 +23,13 @@ import javax.swing.JOptionPane;
 public class InscripcionData {
     
     private Connection conexionData;
-    private AlumnoData a1 = new AlumnoData(conexionData);
-    private MateriaData m1 = new MateriaData(conexionData);
+    private AlumnoData aData;
+    private MateriaData mData;
     
     public InscripcionData(Connection connection) {
         this.conexionData = connection;
+        this.aData = new AlumnoData(connection);
+        this.mData = new MateriaData(connection);
     }
     
     public void guardarInscripcion(Inscripcion i) {
@@ -61,12 +63,11 @@ public class InscripcionData {
             ps.setInt(1, id_materia);
             ps.setInt(2, id_alumno);
             ResultSet rs = ps.executeQuery();
-            rs.toString();
-  
+            
             if (rs.next()) {
                 i1 = new Inscripcion();
-                i1.setAlumno(a1.buscarAlumnoPorID(rs.getInt("id_alumno")));
-                i1.setMateria(m1.buscarMateriaPorID(rs.getInt("id_materia")));
+                i1.setAlumno(aData.buscarAlumnoPorID(rs.getInt("id_alumno")));
+                i1.setMateria(mData.buscarMateriaPorID(rs.getInt("id_materia")));
                 i1.setNota(rs.getDouble("nota"));
                 i1.setId_inscripcion(rs.getInt("id_inscripcion"));
             }

@@ -31,15 +31,15 @@ public class AlumnoData {
             ps.setDate(4, Date.valueOf(a.getDate()));
             ps.setBoolean(5, a.isEstado());
             if (ps.executeUpdate() > 0) {
-                System.out.println("Alumno agregado");
+                JOptionPane.showMessageDialog(null, "Alumno agregado");
             } else {
-                System.out.println("Alumno no agregado");
+                JOptionPane.showMessageDialog(null, "Alumno no agregado");
             }
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 a.setId_alumno(rs.getInt(1));
             } else {
-                System.out.println("No se pudo obtener ID");
+                JOptionPane.showMessageDialog(null, "No se pudo obtener ID");
             }
             ps.close();
         } catch (SQLException ex) {
