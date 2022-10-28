@@ -43,6 +43,9 @@ public class MateriaData {
                 } else  {
                     JOptionPane.showMessageDialog(null, "No se pudo obtener id.");
                 }
+                
+                ps.close();
+                
             } catch(SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Se produjo un error, en agregar materia");
             }
@@ -64,6 +67,9 @@ public class MateriaData {
                 m.setAnio(rs.getInt("anio"));
                 m.setEstado(rs.getBoolean("estado"));
             }
+            
+            ps.close();
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Se produjo un error. en buscar materia por id.");
         }
@@ -90,6 +96,7 @@ public class MateriaData {
             }
             
             ps.close();
+            
         } catch(SQLException ex) {
             JOptionPane.showMessageDialog(null, "Se produjo un error. en actualizar materia");
         }

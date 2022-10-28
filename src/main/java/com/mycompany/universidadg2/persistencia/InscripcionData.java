@@ -50,6 +50,9 @@ public class InscripcionData {
                 } else  {
                     JOptionPane.showMessageDialog(null, "No se pudo obtener id.");
                 }
+                
+                ps.close();
+                
             } catch(SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Se produjo un error, en agregar la inscripción");
             }
@@ -71,6 +74,9 @@ public class InscripcionData {
                 i1.setNota(rs.getDouble("nota"));
                 i1.setId_inscripcion(rs.getInt("id_inscripcion"));
             }
+            
+            ps.close();
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Se produjo un error. obtener inscripcion.");
         }
@@ -116,6 +122,7 @@ public class InscripcionData {
             }
             
             ps.close();
+            
         } catch(SQLException ex) {
             JOptionPane.showMessageDialog(null, "Se produjo un error. en actualizar nota");
         }

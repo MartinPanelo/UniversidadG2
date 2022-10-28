@@ -41,7 +41,9 @@ public class AlumnoData {
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo obtener ID");
             }
+            
             ps.close();
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Se produjo un error. en agregar alumno");
         }
@@ -64,6 +66,9 @@ public class AlumnoData {
                 a.setDate(rs.getDate("fecha_nacimiento").toLocalDate());
                 a.setEstado(rs.getBoolean("estado"));
             }
+            
+            ps.close();
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Se produjo un error. en buscar alumno por id.");
         }
@@ -92,6 +97,7 @@ public class AlumnoData {
             }
             
             ps.close();
+            
         } catch(SQLException ex) {
             JOptionPane.showMessageDialog(null, "Se produjo un error. en agregar alumno");
         }  

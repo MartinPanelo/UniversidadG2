@@ -28,37 +28,39 @@ public class UniversidadG2 {
         AlumnoData aData = new AlumnoData(conexiondb);
         
         // GUARDAR UN ALUMNO
-//       
         Alumno aluGuardado = new Alumno(454545, "Mcwin", "Rayo", LocalDate.of(2000, 05, 17), true);
         aData.guardarAlumno(aluGuardado);
 
 //      // BUSCAR UN ALUMNO
+        System.out.println("\nBuscar un alumno:\n");
         System.out.println(aData.buscarAlumnoPorID(2));
 //        
 //       
 //       //LISTAR ALUMNOS
-//       
+        System.out.println("\nMostrar todos los alumnos registrados:\n");
         System.out.println(aData.listarAlumnos());
 //        
 //       // ACTUALIZAR UN ALUMNO // el id viene dentro del alumno
         Alumno aluActualizado = aData.buscarAlumnoPorID(2);// Busco un alumno de la base de datos
         aluActualizado.setApellido("Tellieri"); // Actualizamos apellido
-        aData.actualizarAlumno(aluGuardado);
+        aData.actualizarAlumno(aluActualizado);
 //       
 //       
-//       // BORRAR ALUMNO POR ID       
+//       // BORRAR ALUMNO POR ID
         aData.borrarAlumno(3);
 
         // CONEXION A MATERIA
         MateriaData mData = new MateriaData(conexiondb);
-//       
+        
 //       //AGREGAR MATERIA
         Materia matAgregar = new Materia("Cs.sociales", 2, true);
         mData.agregarMateria(matAgregar);
 //       
+        System.out.println("\nBuscar una materia por su id:\n");
 //       // BUSCAR UNA MATERIA POR ID
         System.out.println(mData.buscarMateriaPorID(4));
         
+        System.out.println("\nListar todas las materias registradas:\n");
         // LISTAR MATERIAS
         System.out.println(mData.listarMaterias());
 //        
@@ -80,6 +82,7 @@ public class UniversidadG2 {
         Inscripcion in = new Inscripcion(alumGuardado, mateAgregar, 8);
         iData.guardarInscripcion(in);
 
+        System.out.println("\nObtener una inscripcion:\n");
         // OBTENER INSCRIPCION
         System.out.println(iData.obtenerInscripcion(2, 2));
 
@@ -89,14 +92,17 @@ public class UniversidadG2 {
         // ACTUALIZAR NOTA
         iData.actualizarNota(1, 1, 6.5);
 
+        System.out.println("\nObtener lista de materias a la que esta inscripto un alumno:\n");
         // OBTENER LISTA DE MATERIAS INSCRIPTAS POR ALUMNO
         Alumno prueba1 = aData.buscarAlumnoPorID(3);
         System.out.println(iData.obtenerMateriasInscriptas(prueba1));
 
+        System.out.println("\nObtener lista de materias en las que no esta inscripto un alumno:\n");
         // OBTENER LISTA DE MATERIAS NO INSCRIPTAS POR ALUMNO
         Alumno prueba2 = aData.buscarAlumnoPorID(3);
         System.out.println(iData.obtenerMateriasNoInscriptas(prueba2));
 
+        System.out.println("\nObtener lista de alumnos en los que esten inscriptos a una materia:\n");
         // OBTENER LISTA DE MATERIAS INSCRIPTAS POR ALUMNO
         Materia prueba3 = mData.buscarMateriaPorID(2);
         System.out.println(iData.ObtenerAlumnosInscriptos(prueba3));
