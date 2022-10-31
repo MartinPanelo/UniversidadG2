@@ -34,6 +34,8 @@ public class vistaPrincipal extends javax.swing.JFrame {
         JMIformulariodematerias = new javax.swing.JMenuItem();
         JMInscripciones = new javax.swing.JMenu();
         JMIformulariodeinscripciones = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,6 +68,12 @@ public class vistaPrincipal extends javax.swing.JFrame {
 
         JMIformulariodeinscripciones.setText("Formulario de inscripciones");
         JMInscripciones.add(JMIformulariodeinscripciones);
+
+        jMenuItem1.setText("Carga de notas");
+        JMInscripciones.add(jMenuItem1);
+
+        jMenuItem2.setText("Listado de alumnos por materia");
+        JMInscripciones.add(jMenuItem2);
 
         jMenuBar1.add(JMInscripciones);
 
@@ -129,5 +137,7 @@ public class vistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu JMInscripciones;
     private javax.swing.JMenu JMMateria;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     // End of variables declaration//GEN-END:variables
 }
