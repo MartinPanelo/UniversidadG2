@@ -4,6 +4,8 @@
  */
 package com.mycompany.universidadg2.vistas;
 
+import com.mycompany.universidadg2.entidades.Alumno;
+
 /**
  *
  * @author ezequ
@@ -39,8 +41,6 @@ public class vistaNotas extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Carga de notas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Microsoft Tai Le", 1, 18))); // NOI18N
 
         JLnombre.setText("Nombre");
-
-        JCBnombre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         JTtabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -130,7 +130,7 @@ public class vistaNotas extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBTNcancelar;
     private javax.swing.JButton JBTNguardar;
-    private javax.swing.JComboBox<String> JCBnombre;
+    private javax.swing.JComboBox<Alumno> JCBnombre;
     private javax.swing.JLabel JLnombre;
     private javax.swing.JTable JTtabla;
     private javax.swing.JPanel jPanel1;

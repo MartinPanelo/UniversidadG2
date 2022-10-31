@@ -4,6 +4,8 @@
  */
 package com.mycompany.universidadg2.vistas;
 
+import com.mycompany.universidadg2.entidades.Alumno;
+
 /**
  *
  * @author ezequ
@@ -43,8 +45,6 @@ public class vistaInscripcion extends javax.swing.JInternalFrame {
         JPvistaInscripcion.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Formulario de inscripciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Microsoft Tai Le", 1, 18))); // NOI18N
 
         JLalumno.setText("Alumno");
-
-        JCBalumno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         JLlistadodemateria.setText("Listado de materias");
 
@@ -163,7 +163,7 @@ public class vistaInscripcion extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBTNanular;
     private javax.swing.JButton JBTNinscribir;
-    private javax.swing.JComboBox<String> JCBalumno;
+    private javax.swing.JComboBox<Alumno> JCBalumno;
     private javax.swing.JLabel JLalumno;
     private javax.swing.JLabel JLlistadodemateria;
     private javax.swing.JPanel JPvistaInscripcion;
