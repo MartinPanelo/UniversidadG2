@@ -5,17 +5,27 @@
 
 package com.mycompany.universidadg2.vistas;
 
+import com.mycompany.universidadg2.entidades.Alumno;
+import com.mycompany.universidadg2.persistencia.AlumnoData;
+import com.mycompany.universidadg2.persistencia.Conexion;
+import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  *
  * @author ezequ
  */
 public class vistaAlumno extends javax.swing.JInternalFrame {
+    
+    Connection conexiondb = Conexion.getConexion();
+    AlumnoData aData = new AlumnoData(conexiondb);
 
     /** Creates new form vistaAlumno */
     public vistaAlumno() {
         initComponents();
     }
-
+  
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -56,6 +66,11 @@ public class vistaAlumno extends javax.swing.JInternalFrame {
         JLestado.setText("Estado");
 
         JBTNbuscar.setText("Buscar");
+        JBTNbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTNbuscarActionPerformed(evt);
+            }
+        });
 
         JLapellido.setText("Apellido");
 
@@ -167,6 +182,18 @@ public class vistaAlumno extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void JBTNbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTNbuscarActionPerformed
+        Alumno a = new Alumno();
+        a = aData.buscarAlumnoPorID(Integer.parseInt(JTFid.getText()));
+        JTFapellido.setText(a.getApellido());
+        JTFnombre.setText(a.getNombre());
+        JCestado.setSelected(a.isEstado());
+        //Date fechaN = new SimpleDateFormat("yyyy-MM-dd").parse(fechaN);
+        //JDCfechadenacimiento.setDate(a.getDate());
+        //Faltan hacer comprobaciones :P
+        
+    }//GEN-LAST:event_JBTNbuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

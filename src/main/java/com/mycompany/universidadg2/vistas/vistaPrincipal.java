@@ -34,8 +34,8 @@ public class vistaPrincipal extends javax.swing.JFrame {
         JMIformulariodematerias = new javax.swing.JMenuItem();
         JMInscripciones = new javax.swing.JMenu();
         JMIformulariodeinscripciones = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        JMIcargadenotas = new javax.swing.JMenuItem();
+        JMIlistadodealumnospormateria = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,16 +43,21 @@ public class vistaPrincipal extends javax.swing.JFrame {
         JDvistaPrincipal.setLayout(JDvistaPrincipalLayout);
         JDvistaPrincipalLayout.setHorizontalGroup(
             JDvistaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 548, Short.MAX_VALUE)
         );
         JDvistaPrincipalLayout.setVerticalGroup(
             JDvistaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 277, Short.MAX_VALUE)
+            .addGap(0, 384, Short.MAX_VALUE)
         );
 
         JMAlumno.setText("Alumno");
 
         JMIformulariodealumnos.setText("Formulario de alumnos");
+        JMIformulariodealumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMIformulariodealumnosActionPerformed(evt);
+            }
+        });
         JMAlumno.add(JMIformulariodealumnos);
 
         jMenuBar1.add(JMAlumno);
@@ -60,6 +65,11 @@ public class vistaPrincipal extends javax.swing.JFrame {
         JMMateria.setText("Materia");
 
         JMIformulariodematerias.setText("Formulario de materias");
+        JMIformulariodematerias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMIformulariodemateriasActionPerformed(evt);
+            }
+        });
         JMMateria.add(JMIformulariodematerias);
 
         jMenuBar1.add(JMMateria);
@@ -67,13 +77,28 @@ public class vistaPrincipal extends javax.swing.JFrame {
         JMInscripciones.setText("Inscripciones");
 
         JMIformulariodeinscripciones.setText("Formulario de inscripciones");
+        JMIformulariodeinscripciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMIformulariodeinscripcionesActionPerformed(evt);
+            }
+        });
         JMInscripciones.add(JMIformulariodeinscripciones);
 
-        jMenuItem1.setText("Carga de notas");
-        JMInscripciones.add(jMenuItem1);
+        JMIcargadenotas.setText("Carga de notas");
+        JMIcargadenotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMIcargadenotasActionPerformed(evt);
+            }
+        });
+        JMInscripciones.add(JMIcargadenotas);
 
-        jMenuItem2.setText("Listado de alumnos por materia");
-        JMInscripciones.add(jMenuItem2);
+        JMIlistadodealumnospormateria.setText("Listado de alumnos por materia");
+        JMIlistadodealumnospormateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMIlistadodealumnospormateriaActionPerformed(evt);
+            }
+        });
+        JMInscripciones.add(JMIlistadodealumnospormateria);
 
         jMenuBar1.add(JMInscripciones);
 
@@ -92,6 +117,51 @@ public class vistaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void JMIformulariodealumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIformulariodealumnosActionPerformed
+        JDvistaPrincipal.removeAll();
+        JDvistaPrincipal.repaint();
+        vistaAlumno formularioAlumno = new vistaAlumno();
+        formularioAlumno.setVisible(true);
+        JDvistaPrincipal.add(formularioAlumno);
+        JDvistaPrincipal.moveToFront(formularioAlumno);
+    }//GEN-LAST:event_JMIformulariodealumnosActionPerformed
+
+    private void JMIformulariodemateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIformulariodemateriasActionPerformed
+        JDvistaPrincipal.removeAll();
+        JDvistaPrincipal.repaint();
+        vistaMateria formularioMateria = new vistaMateria();
+        formularioMateria.setVisible(true);
+        JDvistaPrincipal.add(formularioMateria);
+        JDvistaPrincipal.moveToFront(formularioMateria);
+    }//GEN-LAST:event_JMIformulariodemateriasActionPerformed
+
+    private void JMIformulariodeinscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIformulariodeinscripcionesActionPerformed
+        JDvistaPrincipal.removeAll();
+        JDvistaPrincipal.repaint();
+        vistaInscripcion formularioInscripcion = new vistaInscripcion();
+        formularioInscripcion.setVisible(true);
+        JDvistaPrincipal.add(formularioInscripcion);
+        JDvistaPrincipal.moveToFront(formularioInscripcion);
+    }//GEN-LAST:event_JMIformulariodeinscripcionesActionPerformed
+
+    private void JMIcargadenotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIcargadenotasActionPerformed
+        JDvistaPrincipal.removeAll();
+        JDvistaPrincipal.repaint();
+        vistaNotas cargaDeNotas = new vistaNotas();
+        cargaDeNotas.setVisible(true);
+        JDvistaPrincipal.add(cargaDeNotas);
+        JDvistaPrincipal.moveToFront(cargaDeNotas);
+    }//GEN-LAST:event_JMIcargadenotasActionPerformed
+
+    private void JMIlistadodealumnospormateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIlistadodealumnospormateriaActionPerformed
+        JDvistaPrincipal.removeAll();
+        JDvistaPrincipal.repaint();
+        vistaListadoDeAlumnosxMateria listadoDeAlumnosPorMateria = new vistaListadoDeAlumnosxMateria();
+        listadoDeAlumnosPorMateria.setVisible(true);
+        JDvistaPrincipal.add(listadoDeAlumnosPorMateria);
+        JDvistaPrincipal.moveToFront(listadoDeAlumnosPorMateria);
+    }//GEN-LAST:event_JMIlistadodealumnospormateriaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -131,13 +201,13 @@ public class vistaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane JDvistaPrincipal;
     private javax.swing.JMenu JMAlumno;
+    private javax.swing.JMenuItem JMIcargadenotas;
     private javax.swing.JMenuItem JMIformulariodealumnos;
     private javax.swing.JMenuItem JMIformulariodeinscripciones;
     private javax.swing.JMenuItem JMIformulariodematerias;
+    private javax.swing.JMenuItem JMIlistadodealumnospormateria;
     private javax.swing.JMenu JMInscripciones;
     private javax.swing.JMenu JMMateria;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     // End of variables declaration//GEN-END:variables
 }

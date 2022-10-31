@@ -55,7 +55,7 @@
                       <Group type="102" attributes="0">
                           <Component id="JLnombre" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="JCBnombre" min="-2" max="-2" attributes="0"/>
+                          <Component id="JCBnombre" min="-2" pref="79" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane1" alignment="0" min="-2" pref="371" max="-2" attributes="0"/>
                   </Group>
