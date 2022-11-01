@@ -192,6 +192,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Guardar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBTNguardarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="JBTNlimpiar">
           <Properties>
@@ -205,11 +208,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Borrar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBTNborrarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="JBTNactualizar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Actualizar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBTNactualizarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

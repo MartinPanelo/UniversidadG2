@@ -27,11 +27,25 @@ public class vistaMateria extends javax.swing.JInternalFrame {
         initComponents();
     }
     
+    public boolean validarCamposVaciosGuardar(){
+     if ( JTFnombre.getText().equals("") || JTFanio.getText().equals("")) {
+        return false;
+    }
+    return true;
+   }
+    
     public boolean validarCamposVaciosBuscar(){
         if (JTFid.getText().equals("")) {
         return false;
     }
     return true;
+    }
+    
+    public boolean validarCamposVaciosActualizar() {
+        if (JTFnombre.getText().equals("") || JTFid.getText().equals("") || JTFanio.getText().equals("")) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -85,6 +99,11 @@ public class vistaMateria extends javax.swing.JInternalFrame {
         });
 
         JBTNguardar.setText("Guardar");
+        JBTNguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTNguardarActionPerformed(evt);
+            }
+        });
 
         JBTNlimpiar.setText("Limpiar");
         JBTNlimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -94,8 +113,18 @@ public class vistaMateria extends javax.swing.JInternalFrame {
         });
 
         JBTNborrar.setText("Borrar");
+        JBTNborrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTNborrarActionPerformed(evt);
+            }
+        });
 
         JBTNactualizar.setText("Actualizar");
+        JBTNactualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTNactualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout JPvistaMateriaLayout = new javax.swing.GroupLayout(JPvistaMateria);
         JPvistaMateria.setLayout(JPvistaMateriaLayout);
@@ -219,6 +248,43 @@ public class vistaMateria extends javax.swing.JInternalFrame {
         JCestado.setSelected(false);
         JTFid.setText("");
     }//GEN-LAST:event_JBTNlimpiarActionPerformed
+
+    private void JBTNborrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTNborrarActionPerformed
+        try {
+                if (validarCamposVaciosBuscar()) {
+                mData.borrarMateria(Integer.parseInt(JTFid.getText()));
+                } else  {
+                JOptionPane.showMessageDialog(null, "Falta ingresar el id para borrar la materia.");
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "El id ingresado contiene caracteres o es invalido.");
+            }
+    }//GEN-LAST:event_JBTNborrarActionPerformed
+
+    private void JBTNactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTNactualizarActionPerformed
+        if (validarCamposVaciosActualizar()) {
+        Materia m = new Materia();
+        m.setNombre(JTFnombre.getText());
+        m.setEstado(JCestado.isSelected());
+        m.setAnio(Integer.parseInt(JTFanio.getText()));
+        m.setId_materia(Integer.parseInt(JTFid.getText()));
+        mData.actualizarMateria(m);
+        } else  {   
+            JOptionPane.showMessageDialog(null, "Faltan llenar campos");
+        }
+    }//GEN-LAST:event_JBTNactualizarActionPerformed
+
+    private void JBTNguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTNguardarActionPerformed
+        if (validarCamposVaciosGuardar()) {
+            Materia m = new Materia();
+            m.setNombre(JTFnombre.getText());
+            m.setAnio(Integer.parseInt(JTFanio.getText()));
+            m.setEstado(JCestado.isSelected());
+            mData.agregarMateria(m);
+        } else  {
+            JOptionPane.showMessageDialog(null, "Faltan llenar campos");
+        }
+    }//GEN-LAST:event_JBTNguardarActionPerformed
         
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

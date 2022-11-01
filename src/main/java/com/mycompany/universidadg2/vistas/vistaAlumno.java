@@ -291,9 +291,7 @@ public class vistaAlumno extends javax.swing.JInternalFrame {
         aData.guardarAlumno(a);
         } else  {   
             JOptionPane.showMessageDialog(null, "Faltan llenar campos");
-        }
-        
-        
+        } 
     }//GEN-LAST:event_JBTNguardarActionPerformed
 
     private void JBTNborrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTNborrarActionPerformed
