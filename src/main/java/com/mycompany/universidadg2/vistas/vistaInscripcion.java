@@ -28,6 +28,7 @@ public class vistaInscripcion extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         JPvistaInscripcion = new javax.swing.JPanel();
         JLalumno = new javax.swing.JLabel();
         JCBalumno = new javax.swing.JComboBox<>();
@@ -48,8 +49,10 @@ public class vistaInscripcion extends javax.swing.JInternalFrame {
 
         JLlistadodemateria.setText("Listado de materias");
 
+        buttonGroup1.add(JRBinscriptas);
         JRBinscriptas.setText("Inscriptas");
 
+        buttonGroup1.add(JRBno_inscriptas);
         JRBno_inscriptas.setText("No inscriptas");
 
         JTtabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -170,6 +173,7 @@ public class vistaInscripcion extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton JRBinscriptas;
     private javax.swing.JRadioButton JRBno_inscriptas;
     private javax.swing.JTable JTtabla;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables

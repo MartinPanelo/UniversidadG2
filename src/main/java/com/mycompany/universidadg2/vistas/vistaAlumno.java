@@ -10,7 +10,12 @@ import com.mycompany.universidadg2.persistencia.AlumnoData;
 import com.mycompany.universidadg2.persistencia.Conexion;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -25,6 +30,26 @@ public class vistaAlumno extends javax.swing.JInternalFrame {
     public vistaAlumno() {
         initComponents();
     }
+    
+    //Validaciones:
+    public boolean validarCamposVaciosGuardar(){
+     if (JTFapellido.getText().equals("") || JTFnombre.getText().equals("") || JTFdni.getText().equals("") || JDCfechadenacimiento.getDate().equals(null)) {
+        return false;
+    }
+    return true;
+   }
+    public boolean validarCamposVaciosBuscar(){
+        if (JTFid.getText().equals("")) {
+        return false;
+    }
+    return true;
+}
+    public boolean validarCamposVaciosActualizar() {
+        if (JTFapellido.getText().equals("") || JTFnombre.getText().equals("") || JTFdni.getText().equals("") || JDCfechadenacimiento.getDate().equals(null) || JTFid.getText().equals("")) {
+            return false;
+        }
+        return true;
+    }
   
     /** This method is called from within the constructor to
      * initialize the form.
@@ -36,7 +61,7 @@ public class vistaAlumno extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         JPvistaAlumno = new javax.swing.JPanel();
-        JLdni = new javax.swing.JLabel();
+        JLid = new javax.swing.JLabel();
         JLnombre = new javax.swing.JLabel();
         JLfechadenacimiento = new javax.swing.JLabel();
         JTFid = new javax.swing.JTextField();
@@ -52,16 +77,26 @@ public class vistaAlumno extends javax.swing.JInternalFrame {
         JBTNlimpiar = new javax.swing.JButton();
         JBTNborrar = new javax.swing.JButton();
         JBTNactualizar = new javax.swing.JButton();
+        JLdni = new javax.swing.JLabel();
+        JTFdni = new javax.swing.JTextField();
 
         setClosable(true);
 
         JPvistaAlumno.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Formulario de alumnos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Microsoft Tai Le", 1, 18))); // NOI18N
 
-        JLdni.setText("ID");
+        JLid.setText("ID");
 
         JLnombre.setText("Nombre");
 
         JLfechadenacimiento.setText("Fecha de nacimiento");
+
+        JTFid.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                JTFidInputMethodTextChanged(evt);
+            }
+        });
 
         JLestado.setText("Estado");
 
@@ -75,12 +110,34 @@ public class vistaAlumno extends javax.swing.JInternalFrame {
         JLapellido.setText("Apellido");
 
         JBTNguardar.setText("Guardar");
+        JBTNguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTNguardarActionPerformed(evt);
+            }
+        });
 
         JBTNlimpiar.setText("Limpiar");
+        JBTNlimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTNlimpiarActionPerformed(evt);
+            }
+        });
 
         JBTNborrar.setText("Borrar");
+        JBTNborrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTNborrarActionPerformed(evt);
+            }
+        });
 
         JBTNactualizar.setText("Actualizar");
+        JBTNactualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTNactualizarActionPerformed(evt);
+            }
+        });
+
+        JLdni.setText("DNI");
 
         javax.swing.GroupLayout JPvistaAlumnoLayout = new javax.swing.GroupLayout(JPvistaAlumno);
         JPvistaAlumno.setLayout(JPvistaAlumnoLayout);
@@ -105,11 +162,12 @@ public class vistaAlumno extends javax.swing.JInternalFrame {
                             .addGroup(JPvistaAlumnoLayout.createSequentialGroup()
                                 .addGroup(JPvistaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(JLnombre)
-                                    .addComponent(JLdni))
+                                    .addComponent(JLid))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(JPvistaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(JTFid)
-                                    .addComponent(JTFnombre))))
+                                    .addComponent(JTFnombre)
+                                    .addComponent(JTFdni))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(JBTNbuscar)
                         .addGap(38, 38, 38))
@@ -119,26 +177,34 @@ public class vistaAlumno extends javax.swing.JInternalFrame {
                         .addComponent(JCestado)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(JPvistaAlumnoLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(JBTNguardar)
-                .addGap(18, 18, 18)
-                .addComponent(JBTNlimpiar)
-                .addGap(18, 18, 18)
-                .addComponent(JBTNborrar)
-                .addGap(18, 18, 18)
-                .addComponent(JBTNactualizar)
+                .addGroup(JPvistaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JPvistaAlumnoLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(JBTNguardar)
+                        .addGap(18, 18, 18)
+                        .addComponent(JBTNlimpiar)
+                        .addGap(18, 18, 18)
+                        .addComponent(JBTNborrar)
+                        .addGap(18, 18, 18)
+                        .addComponent(JBTNactualizar))
+                    .addGroup(JPvistaAlumnoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(JLdni)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         JPvistaAlumnoLayout.setVerticalGroup(
             JPvistaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JPvistaAlumnoLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(JPvistaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(JLdni)
-                    .addGroup(JPvistaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(JTFid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(JBTNbuscar)))
+                .addContainerGap()
+                .addGroup(JPvistaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JTFid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JBTNbuscar)
+                    .addComponent(JLid))
                 .addGap(18, 18, 18)
+                .addGroup(JPvistaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JLdni)
+                    .addComponent(JTFdni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
                 .addGroup(JPvistaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(JLnombre)
                     .addComponent(JTFnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -184,16 +250,81 @@ public class vistaAlumno extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JBTNbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTNbuscarActionPerformed
+        try {
+        if (validarCamposVaciosBuscar()) {
         Alumno a = new Alumno();
         a = aData.buscarAlumnoPorID(Integer.parseInt(JTFid.getText()));
         JTFapellido.setText(a.getApellido());
         JTFnombre.setText(a.getNombre());
         JCestado.setSelected(a.isEstado());
-        //Date fechaN = new SimpleDateFormat("yyyy-MM-dd").parse(fechaN);
-        //JDCfechadenacimiento.setDate(a.getDate());
-        //Faltan hacer comprobaciones :P
-        
+        JTFdni.setText(String.valueOf(a.getDni()));
+        JDCfechadenacimiento.setDate(java.sql.Date.valueOf(a.getDate()));
+        } else  {
+            JOptionPane.showMessageDialog(null, "Falta ingresar el id para buscar.");
+        }
+        } catch (NumberFormatException ex)  {
+            JOptionPane.showMessageDialog(null, "El id ingresado contiene caracteres o es invalido." );
+        }        
     }//GEN-LAST:event_JBTNbuscarActionPerformed
+
+    private void JBTNlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTNlimpiarActionPerformed
+        JTFapellido.setText("");
+        JTFnombre.setText("");
+        JCestado.setSelected(false);
+        JTFdni.setText("");
+        JDCfechadenacimiento.setDate(null);
+        JTFid.setText("");
+    }//GEN-LAST:event_JBTNlimpiarActionPerformed
+
+    private void JTFidInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_JTFidInputMethodTextChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JTFidInputMethodTextChanged
+
+    private void JBTNguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTNguardarActionPerformed
+        if (validarCamposVaciosGuardar()) {
+        Alumno a = new Alumno();
+        a.setApellido(JTFapellido.getText());
+        a.setNombre(JTFnombre.getText());
+        a.setEstado(JCestado.isSelected());
+        a.setDni(Integer.parseInt(JTFdni.getText()));
+        a.setDate(LocalDate.parse( new SimpleDateFormat("yyyy-MM-dd").format(JDCfechadenacimiento.getDate())));
+        aData.guardarAlumno(a);
+        } else  {   
+            JOptionPane.showMessageDialog(null, "Faltan llenar campos");
+        }
+        
+        
+    }//GEN-LAST:event_JBTNguardarActionPerformed
+
+    private void JBTNborrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTNborrarActionPerformed
+        
+            try {
+                if (validarCamposVaciosBuscar()) {
+                aData.borrarAlumno(Integer.parseInt(JTFid.getText()));
+                } else  {
+                JOptionPane.showMessageDialog(null, "Falta ingresar el id para borrar al alumno.");
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "El id ingresado contiene caracteres o es invalido.");
+            }
+        
+    }//GEN-LAST:event_JBTNborrarActionPerformed
+
+    private void JBTNactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTNactualizarActionPerformed
+        if (validarCamposVaciosActualizar()) {
+        Alumno a = new Alumno();
+        a.setApellido(JTFapellido.getText());
+        a.setNombre(JTFnombre.getText());
+        a.setEstado(JCestado.isSelected());
+        a.setDni(Integer.parseInt(JTFdni.getText()));
+        a.setDate(LocalDate.parse( new SimpleDateFormat("yyyy-MM-dd").format(JDCfechadenacimiento.getDate())));
+        a.setId_alumno(Integer.parseInt(JTFid.getText()));
+        aData.actualizarAlumno(a);
+        } else  {   
+            JOptionPane.showMessageDialog(null, "Faltan llenar campos");
+        }
+        
+    }//GEN-LAST:event_JBTNactualizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -208,9 +339,11 @@ public class vistaAlumno extends javax.swing.JInternalFrame {
     private javax.swing.JLabel JLdni;
     private javax.swing.JLabel JLestado;
     private javax.swing.JLabel JLfechadenacimiento;
+    private javax.swing.JLabel JLid;
     private javax.swing.JLabel JLnombre;
     private javax.swing.JPanel JPvistaAlumno;
     private javax.swing.JTextField JTFapellido;
+    private javax.swing.JTextField JTFdni;
     private javax.swing.JTextField JTFid;
     private javax.swing.JTextField JTFnombre;
     private javax.swing.JSeparator jSeparator2;

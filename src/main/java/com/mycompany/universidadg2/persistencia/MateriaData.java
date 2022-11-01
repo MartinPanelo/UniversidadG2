@@ -74,9 +74,9 @@ public class MateriaData {
             JOptionPane.showMessageDialog(null, "Se produjo un error. en buscar materia por id.");
         }
         
-        if (m == null) {
-            JOptionPane.showMessageDialog(null, "No hay una materia con ese ID");
-        }
+//        if (m == null) {
+//            JOptionPane.showMessageDialog(null, "No hay una materia con ese ID");
+//        }
         return m;
     }
     

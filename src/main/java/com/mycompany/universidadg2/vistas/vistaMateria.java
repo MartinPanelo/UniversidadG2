@@ -4,6 +4,12 @@
  */
 package com.mycompany.universidadg2.vistas;
 
+import com.mycompany.universidadg2.entidades.Materia;
+import com.mycompany.universidadg2.persistencia.Conexion;
+import com.mycompany.universidadg2.persistencia.MateriaData;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ezequ
@@ -13,8 +19,19 @@ public class vistaMateria extends javax.swing.JInternalFrame {
     /**
      * Creates new form vistaMateria
      */
+    
+    Connection conexiondb = Conexion.getConexion();
+    MateriaData mData = new MateriaData(conexiondb);
+    
     public vistaMateria() {
         initComponents();
+    }
+    
+    public boolean validarCamposVaciosBuscar(){
+        if (JTFid.getText().equals("")) {
+        return false;
+    }
+    return true;
     }
 
     /**
@@ -61,10 +78,20 @@ public class vistaMateria extends javax.swing.JInternalFrame {
         });
 
         JBTNbuscar.setText("Buscar");
+        JBTNbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTNbuscarActionPerformed(evt);
+            }
+        });
 
         JBTNguardar.setText("Guardar");
 
         JBTNlimpiar.setText("Limpiar");
+        JBTNlimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTNlimpiarActionPerformed(evt);
+            }
+        });
 
         JBTNborrar.setText("Borrar");
 
@@ -131,18 +158,18 @@ public class vistaMateria extends javax.swing.JInternalFrame {
                     .addComponent(JLanio)
                     .addComponent(JTFanio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(JPvistaMateriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JLestado)
-                    .addComponent(JCestado))
+                .addGroup(JPvistaMateriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JCestado)
+                    .addComponent(JLestado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(JPvistaMateriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JBTNguardar)
+                .addGroup(JPvistaMateriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JPvistaMateriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(JBTNlimpiar)
                         .addComponent(JBTNborrar)
-                        .addComponent(JBTNactualizar)))
+                        .addComponent(JBTNactualizar))
+                    .addComponent(JBTNguardar))
                 .addContainerGap(7, Short.MAX_VALUE))
         );
 
@@ -170,6 +197,29 @@ public class vistaMateria extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_JTFanioActionPerformed
 
+    private void JBTNbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTNbuscarActionPerformed
+        try {
+        if (validarCamposVaciosBuscar()) {
+        Materia m = new Materia();
+        m = mData.buscarMateriaPorID(Integer.parseInt(JTFid.getText()));
+        JTFnombre.setText(m.getNombre());
+        JCestado.setSelected(m.isEstado());
+        JTFanio.setText(String.valueOf(m.getAnio()));
+        } else  {
+            JOptionPane.showMessageDialog(null, "Falta ingresar el id para buscar.");
+        }
+        } catch (NumberFormatException | NullPointerException ex)  {
+            JOptionPane.showMessageDialog(null, "El id ingresado contiene caracteres o es invalido." );    
+        }
+    }//GEN-LAST:event_JBTNbuscarActionPerformed
+
+    private void JBTNlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTNlimpiarActionPerformed
+        JTFanio.setText("");
+        JTFnombre.setText("");
+        JCestado.setSelected(false);
+        JTFid.setText("");
+    }//GEN-LAST:event_JBTNlimpiarActionPerformed
+        
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBTNactualizar;
