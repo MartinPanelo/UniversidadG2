@@ -173,7 +173,7 @@ public class vistaNotas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JCBnombreActionPerformed
 
     private void JCBnombreItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCBnombreItemStateChanged
-       cargarAlumnosComboBox();
+       //cargarAlumnosComboBox();
     }//GEN-LAST:event_JCBnombreItemStateChanged
 
     private void JBTNguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTNguardarActionPerformed
