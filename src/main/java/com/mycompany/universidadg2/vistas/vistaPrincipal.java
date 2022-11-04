@@ -43,7 +43,7 @@ public class vistaPrincipal extends javax.swing.JFrame {
         JDvistaPrincipal.setLayout(JDvistaPrincipalLayout);
         JDvistaPrincipalLayout.setHorizontalGroup(
             JDvistaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 548, Short.MAX_VALUE)
+            .addGap(0, 536, Short.MAX_VALUE)
         );
         JDvistaPrincipalLayout.setVerticalGroup(
             JDvistaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,7 +108,10 @@ public class vistaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JDvistaPrincipal, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(JDvistaPrincipal)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

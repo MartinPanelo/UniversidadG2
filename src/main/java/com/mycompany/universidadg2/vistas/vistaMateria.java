@@ -262,6 +262,7 @@ public class vistaMateria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JBTNborrarActionPerformed
 
     private void JBTNactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTNactualizarActionPerformed
+        try {
         if (validarCamposVaciosActualizar()) {
         Materia m = new Materia();
         m.setNombre(JTFnombre.getText());
@@ -272,9 +273,13 @@ public class vistaMateria extends javax.swing.JInternalFrame {
         } else  {   
             JOptionPane.showMessageDialog(null, "Faltan llenar campos");
         }
+        } catch (NumberFormatException ex)  {
+            JOptionPane.showMessageDialog(null, "Asegurese de ingresar correctamente el año.");
+        }
     }//GEN-LAST:event_JBTNactualizarActionPerformed
 
     private void JBTNguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTNguardarActionPerformed
+        try {
         if (validarCamposVaciosGuardar()) {
             Materia m = new Materia();
             m.setNombre(JTFnombre.getText());
@@ -283,6 +288,9 @@ public class vistaMateria extends javax.swing.JInternalFrame {
             mData.agregarMateria(m);
         } else  {
             JOptionPane.showMessageDialog(null, "Faltan llenar campos");
+        }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Asegurese de ingresar correctamente el año.");
         }
     }//GEN-LAST:event_JBTNguardarActionPerformed
         

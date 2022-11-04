@@ -80,8 +80,38 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return "Alumno{" + "id_alumno=" + id_alumno + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre + ", date=" + date + ", estado=" + estado + '}';
+        return apellido + " " + nombre + ", DNI: " + dni;
+        //return "Alumno{" + "id_alumno=" + id_alumno + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre + ", date=" + date + ", estado=" + estado + '}';
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 67 * hash + this.id_alumno;
+        hash = 67 * hash + (int) (this.dni ^ (this.dni >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Alumno other = (Alumno) obj;
+        if (this.id_alumno != other.id_alumno) {
+            return false;
+        }
+        return this.dni == other.dni;
+    }
+    
+    
+    
     
     
 }

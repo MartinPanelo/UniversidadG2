@@ -128,6 +128,39 @@ public class InscripcionData {
         }
         }
      
+     public List<Inscripcion> listadoDeInscripciones() {
+         
+     String sql = "SELECT * FROM inscripcion";
+     
+     List<Inscripcion> listaInscripcion = new ArrayList<Inscripcion>();
+     try {
+         
+        PreparedStatement ps = conexionData.prepareStatement(sql);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        while (rs.next()) {
+        
+                Inscripcion i = new Inscripcion();
+                
+                i.setAlumno(aData.buscarAlumnoPorID(rs.getInt("id_alumno")));
+                i.setMateria(mData.buscarMateriaPorID(rs.getInt("id_materia")));
+                i.setNota(rs.getDouble("nota"));
+                i.setId_inscripcion(rs.getInt("id_inscripcion"));
+                listaInscripcion.add(i);
+                
+                
+                }
+     
+        ps.close();
+        
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Se produjo un error al listar las inscripciones. " + ex);
+        }
+     return listaInscripcion;
+     }
+     
+     
      public List<Materia> obtenerMateriasInscriptas(Alumno a) {
         
         String sql = "SELECT * FROM inscripcion, materia WHERE inscripcion.id_materia = materia.id_materia AND id_alumno = ?";
