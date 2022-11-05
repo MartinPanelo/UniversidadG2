@@ -29,8 +29,10 @@ public class vistaNotas extends javax.swing.JInternalFrame {
     InscripcionData iData = new InscripcionData(conexiondb);
     private DefaultTableModel modeloTabla;
     
-    HashSet<Alumno> listaAlumnos = new HashSet<Alumno>();
-    List<Materia> listaMaterias = new ArrayList<Materia>();
+    private HashSet<Alumno> listaAlumnos = new HashSet();
+    private List<Materia> listaMaterias = new ArrayList();
+    private List<Inscripcion> listaInscripciones = new ArrayList();
+    private Alumno selecionado = new Alumno();
     //List<Inscripcion> listaInscripciones = new ArrayList<Inscripcion>();
     
     /**
@@ -40,6 +42,7 @@ public class vistaNotas extends javax.swing.JInternalFrame {
         initComponents();
         modeloTabla = new DefaultTableModel();
         armarTabla();
+        obtenerDatos();
         cargarAlumnosComboBox();
     }
 
@@ -69,6 +72,14 @@ public class vistaNotas extends javax.swing.JInternalFrame {
         JCBnombre.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 JCBnombreItemStateChanged(evt);
+            }
+        });
+        JCBnombre.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                JCBnombreCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                JCBnombreInputMethodTextChanged(evt);
             }
         });
         JCBnombre.addActionListener(new java.awt.event.ActionListener() {
@@ -169,62 +180,58 @@ public class vistaNotas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JCBnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCBnombreActionPerformed
-    
+
+        modeloTabla.setNumRows(0);
+       // double nota;
+        if (JCBnombre.getSelectedIndex() != -1) {
+           selecionado = (Alumno) JCBnombre.getSelectedItem();
+        }
+         
+        for (Inscripcion aux : listaInscripciones) {
+          System.out.println(aux.getAlumno() + " " + aux.getMateria() + " " + aux.getNota() );
+        }
+        
+        for (Inscripcion aux : listaInscripciones) {
+            if (selecionado.getId_alumno() == aux.getAlumno().getId_alumno()) {
+                listaMaterias.add(aux.getMateria());
+               // nota = aux.getNota();
+                modeloTabla.addRow(new Object[]{aux.getMateria().getId_materia(), aux.getMateria().getNombre(), aux.getNota()});
+            }
+        }
+        
     }//GEN-LAST:event_JCBnombreActionPerformed
 
     private void JCBnombreItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCBnombreItemStateChanged
        //cargarAlumnosComboBox();
+      
     }//GEN-LAST:event_JCBnombreItemStateChanged
 
     private void JBTNguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTNguardarActionPerformed
 
-           cargarAlumnosComboBox(); 
+        //  cargarAlumnosComboBox(); 
     }//GEN-LAST:event_JBTNguardarActionPerformed
 
-    public void cargarAlumnosComboBox() {
-        List<Inscripcion> listaInscripciones = new ArrayList<Inscripcion>();
-        modeloTabla.setNumRows(0);
-        Alumno selecionado = new Alumno();
-        if (JCBnombre.getSelectedIndex() != -1) {
-           selecionado = (Alumno) JCBnombre.getSelectedItem();
-        }
-        listaInscripciones = iData.listadoDeInscripciones();
-        double nota = 0;
-        for (Inscripcion aux : listaInscripciones) {
-            listaAlumnos.add(aux.getAlumno());
-        }
-        for (Inscripcion aux : listaInscripciones) {
-            listaMaterias.add(aux.getMateria());
-        }
+    private void JCBnombreInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_JCBnombreInputMethodTextChanged
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_JCBnombreInputMethodTextChanged
+
+    private void JCBnombreCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_JCBnombreCaretPositionChanged
+        // TODO add your handling code here:
+       
+          
+    }//GEN-LAST:event_JCBnombreCaretPositionChanged
+
+    private void cargarAlumnosComboBox() {
+        
+       
+        
         JCBnombre.removeAllItems();
-        for (Alumno aux : listaAlumnos) {
-            JCBnombre.addItem(aux);
-        }
-        for (Inscripcion aux : listaInscripciones) {
-            System.out.println(aux.getAlumno() + " " + aux.getMateria() + " " + aux.getNota());
-        }
-        for (Inscripcion aux : listaInscripciones) {
-                if (selecionado.getId_alumno() == aux.getAlumno().getId_alumno()) {
-                listaMaterias.add(aux.getMateria());
-                nota = aux.getNota();
-                modeloTabla.addRow(new Object[]{aux.getMateria().getId_materia(), aux.getMateria().getNombre(), nota});
-                }
-             }
-             
-        }
-        
-        
-//        double nota = 0;
-//        Alumno selecionado = (Alumno) JCBnombre.getSelectedItem();
-//        for (Inscripcion aux : listaInscripciones) {
-//            if (selecionado == aux.getAlumno()) {
-//                listaMaterias.add(aux.getMateria());
-//                nota = aux.getNota();
-//            }
-//        }
-//        for (Materia aux : listaMaterias) {
-//            modeloTabla.addRow(new Object[]{aux.getId_materia(), aux.getNombre(), nota});
-//        } 
+            for (Alumno aux : listaAlumnos) {
+                JCBnombre.addItem(aux);
+            }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBTNguardar;
@@ -247,5 +254,16 @@ public class vistaNotas extends javax.swing.JInternalFrame {
         }
         
         JTtabla.setModel(modeloTabla);
+    }
+
+    private void obtenerDatos() {
+        listaInscripciones = iData.listadoDeInscripciones();
+         
+        for (Inscripcion aux : listaInscripciones) {
+            listaAlumnos.add(aux.getAlumno());
+        }
+        for (Inscripcion aux : listaInscripciones) {
+            listaMaterias.add(aux.getMateria());
+        }
     }
 }
