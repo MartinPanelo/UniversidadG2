@@ -264,7 +264,9 @@ public class vistaAlumno extends javax.swing.JInternalFrame {
         }
         } catch (NumberFormatException ex)  {
             JOptionPane.showMessageDialog(null, "El id ingresado contiene caracteres o es invalido." );
-        }        
+        } catch(NullPointerException err){
+            JOptionPane.showMessageDialog(null, "No se pudo buscar por id porque no existe un alumno con ese id.");
+        }
     }//GEN-LAST:event_JBTNbuscarActionPerformed
 
     private void JBTNlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTNlimpiarActionPerformed

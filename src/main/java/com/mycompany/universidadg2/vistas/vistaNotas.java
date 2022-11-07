@@ -211,6 +211,8 @@ public class vistaNotas extends javax.swing.JInternalFrame {
             }
         }catch(ClassCastException err) {
             JOptionPane.showMessageDialog(null, "No a seteado ninguna nota");
+        }catch(NumberFormatException er){
+            JOptionPane.showMessageDialog(null, "La nota ingresa no es valida");
         }
     }//GEN-LAST:event_JBTNguardarActionPerformed
 

@@ -72,9 +72,9 @@ public class AlumnoData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Se produjo un error. en buscar alumno por id.");
         }
-        if (a == null) {
-            JOptionPane.showMessageDialog(null, "No se pudo buscar por id porque no existe un alumno con ese id.");
-        }
+//        if (a == null) {
+//            JOptionPane.showMessageDialog(null, "No se pudo buscar por id porque no existe un alumno con ese id.");
+//        }
         return a;
     }
 

@@ -35,7 +35,12 @@ public class vistaListadoDeAlumnosxMateria extends javax.swing.JInternalFrame {
     
 public vistaListadoDeAlumnosxMateria() {
     initComponents();
-    modeloTabla = new DefaultTableModel();
+    modeloTabla = new DefaultTableModel(){
+			@Override
+			public boolean isCellEditable(int row, int column) {
+                          return false;
+			}
+		};
         armarTabla();
         obtenerDatos();
         cargarMateriasComboBox();
