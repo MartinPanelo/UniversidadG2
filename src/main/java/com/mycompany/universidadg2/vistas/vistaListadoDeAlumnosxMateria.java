@@ -4,20 +4,42 @@
  */
 package com.mycompany.universidadg2.vistas;
 
+import com.mycompany.universidadg2.entidades.Alumno;
+import com.mycompany.universidadg2.entidades.Inscripcion;
 import com.mycompany.universidadg2.entidades.Materia;
+import com.mycompany.universidadg2.persistencia.AlumnoData;
+import com.mycompany.universidadg2.persistencia.Conexion;
+import com.mycompany.universidadg2.persistencia.InscripcionData;
+import com.mycompany.universidadg2.persistencia.MateriaData;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author ezequ
  */
 public class vistaListadoDeAlumnosxMateria extends javax.swing.JInternalFrame {
-
-    /**
-     * Creates new form vistaListadoDeAlumnosxMateria
-     */
-    public vistaListadoDeAlumnosxMateria() {
-        initComponents();
-    }
+    Connection conexiondb = Conexion.getConexion();
+    MateriaData mData = new MateriaData(conexiondb);
+    AlumnoData aData = new AlumnoData(conexiondb);
+    InscripcionData iData = new InscripcionData(conexiondb);
+    private DefaultTableModel modeloTabla;
+    
+    private List<Alumno> listaAlumnos = new ArrayList();
+    private List<Materia> listaMaterias = new ArrayList();
+    private List<Inscripcion> listaInscripciones = new ArrayList();
+    private Materia materiaSelec = new Materia();
+    
+public vistaListadoDeAlumnosxMateria() {
+    initComponents();
+    modeloTabla = new DefaultTableModel();
+        armarTabla();
+        obtenerDatos();
+        cargarMateriasComboBox();
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,9 +58,29 @@ public class vistaListadoDeAlumnosxMateria extends javax.swing.JInternalFrame {
 
         setClosable(true);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Listado de alumnos por materia", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Microsoft Tai Le", 1, 18))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listado de alumnos por materia", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Microsoft Tai Le", 1, 18))); // NOI18N
 
         JLmateria.setText("Materia");
+
+        JCBmateria.setToolTipText("");
+        JCBmateria.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                JCBmateriaItemStateChanged(evt);
+            }
+        });
+        JCBmateria.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                JCBmateriaCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                JCBmateriaInputMethodTextChanged(evt);
+            }
+        });
+        JCBmateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JCBmateriaActionPerformed(evt);
+            }
+        });
 
         JTtabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -91,9 +133,9 @@ public class vistaListadoDeAlumnosxMateria extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JLmateria)
                     .addComponent(JCBmateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -112,6 +154,30 @@ public class vistaListadoDeAlumnosxMateria extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void JCBmateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCBmateriaActionPerformed
+        // TODO add your handling code here:
+        
+       
+        if (JCBmateria.getSelectedIndex() != -1) {
+           materiaSelec = (Materia) JCBmateria.getSelectedItem();
+        }
+        cargarAlumnosInscriptosEnLaMateria();
+         
+    
+    }//GEN-LAST:event_JCBmateriaActionPerformed
+
+    private void JCBmateriaCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_JCBmateriaCaretPositionChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JCBmateriaCaretPositionChanged
+
+    private void JCBmateriaInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_JCBmateriaInputMethodTextChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JCBmateriaInputMethodTextChanged
+
+    private void JCBmateriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCBmateriaItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JCBmateriaItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Materia> JCBmateria;
@@ -120,4 +186,59 @@ public class vistaListadoDeAlumnosxMateria extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarMateriasComboBox() {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+     
+        //JCBmateria.removeAllItems();
+        listaMaterias= mData.listarMaterias();
+            for (Materia aux : listaMaterias) {
+                JCBmateria.addItem(aux);
+            }
+    }
+
+    private void obtenerDatos() {
+       //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+     //listaInscripciones = iData.listadoDeInscripciones();
+         
+       // for (Inscripcion aux : listaInscripciones) {
+         //  listaAlumnos.add(aux.getAlumno());
+        //}
+        //for (Inscripcion aux : listaInscripciones) {
+          //  listaMaterias.add(aux.getMateria());
+        //}
+    }
+
+    private void armarTabla() {
+       // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+     ArrayList<Object> columnas = new ArrayList<Object>();
+        columnas.add("ID");
+        columnas.add("Nombre");
+        columnas.add("Nota");
+        
+        for (Object aux : columnas) {
+            modeloTabla.addColumn(aux);
+        }
+        
+        JTtabla.setModel(modeloTabla);
+    }
+
+    private void cargarAlumnosInscriptosEnLaMateria() {
+        modeloTabla.setNumRows(0);
+        Materia materiaSelec = (Materia) JCBmateria.getSelectedItem();
+       // listaAlumnos = iData.ObtenerAlumnosInscriptos(materiaSelec);
+       
+        listaInscripciones = iData.listadoDeInscripcionesParaMateria(materiaSelec);
+        //System.out.println(listaInscripciones.get(0).getAlumno());
+       // System.out.println(listaInscripciones.size());
+        if (listaInscripciones.size()!=0) {
+            for (Inscripcion aux : listaInscripciones) {
+            
+            modeloTabla.addRow(new Object[]{aux.getAlumno().getId_alumno(), aux.getAlumno().getNombre(), aux.getNota()});
+            
+        }
+        }
+        
+    
+    }
 }
