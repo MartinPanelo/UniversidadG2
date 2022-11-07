@@ -223,7 +223,14 @@ public class vistaInscripcion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JRBno_inscriptasActionPerformed
 
     private void JCBalumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCBalumnoActionPerformed
-        
+       if(JCBalumno.getSelectedItem() != null){
+           if(JRBinscriptas.isSelected()){
+               cargarMateriasEnLasQueElAlumnoInscriptos();
+           }
+           if(JRBno_inscriptas.isSelected()){
+               cargarMateriasEnLasQueElAlumnoNoEsteInscripto();
+           }
+       }
     }//GEN-LAST:event_JCBalumnoActionPerformed
 
     private void JBTNinscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTNinscribirActionPerformed

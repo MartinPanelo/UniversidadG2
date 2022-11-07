@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -40,10 +41,17 @@ public class vistaNotas extends javax.swing.JInternalFrame {
      */
     public vistaNotas() {
         initComponents();
-        modeloTabla = new DefaultTableModel();
+        modeloTabla = new DefaultTableModel(){
+			@Override
+			public boolean isCellEditable(int row, int column) {
+                          return column == 2;
+			}
+		};
+        
         armarTabla();
         obtenerDatos();
         cargarAlumnosComboBox();
+        
     }
 
     /**
@@ -90,30 +98,12 @@ public class vistaNotas extends javax.swing.JInternalFrame {
 
         JTtabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "ID", "Materia", "Nota"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jScrollPane1.setViewportView(JTtabla);
 
         JBTNguardar.setText("Guardar");
@@ -198,7 +188,7 @@ public class vistaNotas extends javax.swing.JInternalFrame {
                 modeloTabla.addRow(new Object[]{aux.getMateria().getId_materia(), aux.getMateria().getNombre(), aux.getNota()});
             }
         }
-        
+       
     }//GEN-LAST:event_JCBnombreActionPerformed
 
     private void JCBnombreItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCBnombreItemStateChanged
@@ -207,8 +197,21 @@ public class vistaNotas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JCBnombreItemStateChanged
 
     private void JBTNguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTNguardarActionPerformed
+      
+        Materia m = new Materia();
+        
+        m = mData.buscarMateriaPorID((int)JTtabla.getValueAt(JTtabla.getSelectedRow(), 0));
+        try{
+            double nota = Double.parseDouble((String)JTtabla.getValueAt(JTtabla.getSelectedRow(), 2));
 
-        //  cargarAlumnosComboBox(); 
+            if(nota >= 0 && nota <= 10){
+                iData.actualizarNota(selecionado.getId_alumno(), m.getId_materia(),nota);
+            }else {
+                JOptionPane.showMessageDialog(null, "La nota ingresa no es valida");
+            }
+        }catch(ClassCastException err) {
+            JOptionPane.showMessageDialog(null, "No a seteado ninguna nota");
+        }
     }//GEN-LAST:event_JBTNguardarActionPerformed
 
     private void JCBnombreInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_JCBnombreInputMethodTextChanged
@@ -244,18 +247,21 @@ public class vistaNotas extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void armarTabla() {
-        ArrayList<Object> columnas = new ArrayList<Object>();
+        ArrayList<Object> columnas = new ArrayList();
         columnas.add("Legajo");
         columnas.add("Materia");
         columnas.add("Nota");
-        
         for (Object aux : columnas) {
             modeloTabla.addColumn(aux);
+         
+            
         }
+       
+        
         
         JTtabla.setModel(modeloTabla);
     }
-
+    
     private void obtenerDatos() {
         listaInscripciones = iData.listadoDeInscripciones();
          
