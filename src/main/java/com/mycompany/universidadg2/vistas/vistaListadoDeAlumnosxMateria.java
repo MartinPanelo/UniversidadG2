@@ -14,7 +14,6 @@ import com.mycompany.universidadg2.persistencia.MateriaData;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,29 +21,30 @@ import javax.swing.table.DefaultTableModel;
  * @author ezequ
  */
 public class vistaListadoDeAlumnosxMateria extends javax.swing.JInternalFrame {
+
     Connection conexiondb = Conexion.getConexion();
     MateriaData mData = new MateriaData(conexiondb);
     AlumnoData aData = new AlumnoData(conexiondb);
     InscripcionData iData = new InscripcionData(conexiondb);
     private DefaultTableModel modeloTabla;
-    
+
     private List<Alumno> listaAlumnos = new ArrayList();
     private List<Materia> listaMaterias = new ArrayList();
     private List<Inscripcion> listaInscripciones = new ArrayList();
     private Materia materiaSelec = new Materia();
-    
-public vistaListadoDeAlumnosxMateria() {
-    initComponents();
-    modeloTabla = new DefaultTableModel(){
-			@Override
-			public boolean isCellEditable(int row, int column) {
-                          return false;
-			}
-		};
+
+    public vistaListadoDeAlumnosxMateria() {
+        initComponents();
+        modeloTabla = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         armarTabla();
-        obtenerDatos();
+
         cargarMateriasComboBox();
-}
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -161,14 +161,13 @@ public vistaListadoDeAlumnosxMateria() {
 
     private void JCBmateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCBmateriaActionPerformed
         // TODO add your handling code here:
-        
-       
+
         if (JCBmateria.getSelectedIndex() != -1) {
-           materiaSelec = (Materia) JCBmateria.getSelectedItem();
+            materiaSelec = (Materia) JCBmateria.getSelectedItem();
         }
         cargarAlumnosInscriptosEnLaMateria();
-         
-    
+
+
     }//GEN-LAST:event_JCBmateriaActionPerformed
 
     private void JCBmateriaCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_JCBmateriaCaretPositionChanged
@@ -193,57 +192,39 @@ public vistaListadoDeAlumnosxMateria() {
     // End of variables declaration//GEN-END:variables
 
     private void cargarMateriasComboBox() {
-        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-     
-        //JCBmateria.removeAllItems();
-        listaMaterias= mData.listarMaterias();
-            for (Materia aux : listaMaterias) {
-                JCBmateria.addItem(aux);
-            }
-    }
 
-    private void obtenerDatos() {
-       //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-     //listaInscripciones = iData.listadoDeInscripciones();
-         
-       // for (Inscripcion aux : listaInscripciones) {
-         //  listaAlumnos.add(aux.getAlumno());
-        //}
-        //for (Inscripcion aux : listaInscripciones) {
-          //  listaMaterias.add(aux.getMateria());
-        //}
+        listaMaterias = mData.listarMaterias();
+        for (Materia aux : listaMaterias) {
+            JCBmateria.addItem(aux);
+        }
     }
 
     private void armarTabla() {
-       // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-     ArrayList<Object> columnas = new ArrayList<Object>();
+        ArrayList<Object> columnas = new ArrayList();
         columnas.add("ID");
         columnas.add("Nombre");
         columnas.add("Nota");
-        
+
         for (Object aux : columnas) {
             modeloTabla.addColumn(aux);
         }
-        
+
         JTtabla.setModel(modeloTabla);
     }
 
     private void cargarAlumnosInscriptosEnLaMateria() {
         modeloTabla.setNumRows(0);
         Materia materiaSelec = (Materia) JCBmateria.getSelectedItem();
-       // listaAlumnos = iData.ObtenerAlumnosInscriptos(materiaSelec);
-       
+
         listaInscripciones = iData.listadoDeInscripcionesParaMateria(materiaSelec);
-        //System.out.println(listaInscripciones.get(0).getAlumno());
-       // System.out.println(listaInscripciones.size());
-        if (listaInscripciones.size()!=0) {
+
+        if (!listaInscripciones.isEmpty()) {
             for (Inscripcion aux : listaInscripciones) {
-            
-            modeloTabla.addRow(new Object[]{aux.getAlumno().getId_alumno(), aux.getAlumno().getNombre(), aux.getNota()});
-            
+
+                modeloTabla.addRow(new Object[]{aux.getAlumno().getId_alumno(), aux.getAlumno().getNombre(), aux.getNota()});
+
+            }
         }
-        }
-        
-    
+
     }
 }
